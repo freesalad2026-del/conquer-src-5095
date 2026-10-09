@@ -132,9 +132,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\ManagedOpenSsl.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data">
-      <HintPath>bin\Debug\MySql.Data.dll</HintPath>
-    </Reference>
+
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -153,6 +151,9 @@
     <Reference Include="TQHandle">
       <HintPath>bin\Debug\TQHandle.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BahaaPanels\AccountsForm.cs">
