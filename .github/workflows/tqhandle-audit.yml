@@ -1,7 +1,5 @@
 name: Audit TQHandle dependencies
 on:
-  push:
-    branches: [refactor/tqhandle-native-anticheat]
   workflow_dispatch:
 
 jobs:
