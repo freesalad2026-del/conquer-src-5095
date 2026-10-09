@@ -1,0 +1,11 @@
+/build/
+/out/
+/.vs/
+*.exe
+*.dll
+*.pdb
+*.obj
+*.o
+*.so
+*.dylib
+.env
