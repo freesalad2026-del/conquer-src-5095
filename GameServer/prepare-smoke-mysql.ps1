@@ -72,6 +72,9 @@ Write-Host 'Importing repository zq.sql into the temporary database...'
 Get-Content -Path (Join-Path (Resolve-Path '.').Path 'zq.sql') -Raw | & $mysqlCmd.Source --host=127.0.0.1 --protocol=tcp --user=root zq
 if ($LASTEXITCODE -ne 0) { throw "zq.sql import failed: exit $LASTEXITCODE" }
 Write-Host 'MySQL database imported successfully'
+& $mysqlCmd.Source --host=127.0.0.1 --protocol=tcp --user=root zq -e "UPDATE servers SET IP='127.0.0.1', Port=5816 WHERE Name='CoPrivate';"
+if ($LASTEXITCODE -ne 0) { throw "Cannot configure localhost server redirect" }
+Write-Host 'Configured CoPrivate destination 127.0.0.1:5816 in temporary zq.servers table'
 Remove-Item Env:MYSQL_PWD -ErrorAction SilentlyContinue
 
 $accountConfig = Join-Path (Resolve-Path '.').Path 'AccServer\bin\Release\AccServer.exe.config'
