@@ -11,6 +11,11 @@ on:
       - 'GameServer/Database/Server.cs'
       - 'GameServer/COServer.csproj'
       - 'GameServer/bin/Debug/shell.ini'
+      - 'GameServer/AntiCheat/**'
+      - 'GameServer/Program.cs'
+      - 'GameServer/Database/Server.cs'
+      - 'GameServer/COServer.csproj'
+      - 'GameServer/bin/Debug/shell.ini'
       - '.github/workflows/localhost-smoke.yml'
   workflow_dispatch:
 
