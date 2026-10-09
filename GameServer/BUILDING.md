@@ -1,6 +1,6 @@
 # GameServer with Visual Studio 2026
 
-**No direct modification of TQHandle.dll is required for the project to compile.** This repository already includes `GameServer/bin/Debug/TQHandle.dll`, `ManagedOpenSsl.dll`, `MySql.Data.dll` and `System.Web.Entity.dll`. The original project referenced DLL paths on another developer's PC. Those hint paths are corrected in this branch.
+**No direct modification of TQHandle.dll is required for the project to compile.** This repository already includes `GameServer/bin/Debug/TQHandle.dll`, `ManagedOpenSsl.dll` and `System.Web.Entity.dll`. The original bundled `MySql.Data.dll` is outdated; **the GameServer now restores MySql.Data 9.0.0 from NuGet**, replacing that old DLL on build. The original project referenced DLL paths on another developer's PC. Those hint paths are corrected in this branch.
 
 ## Build and run (Windows)
 
@@ -43,4 +43,4 @@ The repository currently has three **different, old IPs** in `shell.ini`, `Datab
 - A **MySQL error**: confirm MySQL is running, the `zq` schema is imported, and both server connection strings use valid credentials.
 - A **TQHandle/TQGuard exception**: record the **exact exception message and stack trace** before attempting to modify the binary; the DLL appears to provide a separate network listener, and a crash may be due to a missing dependency, port conflict or runtime mismatch.
 
-The build test checks compilation, **not** a full running server, client login or DLL runtime behavior.
+The localhost smoke test builds both executables, initializes a disposable MySQL 8.0 server, imports `zq.sql`, and verifies that GameServer listens on 5816 and Account Server on 9958. It also logs TQGuard activation. **This does not exercise a real game-client login**. Some optional map files are missing from the repository; the server logs missing maps but continues startup.
