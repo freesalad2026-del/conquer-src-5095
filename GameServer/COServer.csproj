@@ -157,7 +157,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AntiCheat\PacketFloodGuard.cs" />
-    <Compile Include="AntiCheat\PacketFloodGuard.cs" />
     <Compile Include="BahaaPanels\AccountsForm.cs">
       <SubType>Form</SubType>
     </Compile>
