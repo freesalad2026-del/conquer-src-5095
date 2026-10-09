@@ -120,6 +120,9 @@ namespace COServer
             public static ushort Port_BackLog;
             public static ushort Port_ReceiveSize = 4096;
             public static ushort Port_SendSize = 4096;//8191
+            public static bool EnablePacketFloodGuard = true;
+            public static uint PacketFloodSoftLimit = 1000;
+            public static uint PacketFloodHardLimit = 2500;
             //Database
             public static string DbLocation = "Database5103";
 
@@ -503,6 +506,11 @@ namespace COServer
                     if (obj.Game == null)
                         return;
                     ushort PacketID = stream.ReadUInt16();
+                    if (!AntiCheat.PacketFloodGuard.Allow(obj, PacketID))
+                    {
+                        obj.Disconnect();
+                        return;
+                    }
                     //if (PacketID == 1052)
                     //{
                     //    obj.Disconnect();
