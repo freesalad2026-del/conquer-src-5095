@@ -23,7 +23,7 @@ jobs:
         run: msbuild "AccServer/AccServer.sln" /restore /m /p:Configuration=Release "/p:Platform=Any CPU" /v:minimal
       - name: Build GameServer Debug x86
         shell: pwsh
-        run: msbuild "GameServer/COServer.sln" /m /p:Configuration=Debug /p:Platform=x86 /v:minimal
+        run: msbuild "GameServer/COServer.sln" /restore /m /p:Configuration=Debug /p:Platform=x86 /v:minimal
       - name: Initialize MySQL, import database, then launch and probe servers
         shell: pwsh
         run: |
