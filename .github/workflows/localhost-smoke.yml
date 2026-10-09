@@ -1,0 +1,31 @@
+name: Localhost runtime smoke (Windows)
+on:
+  push:
+    branches:
+      - test/localhost-runtime-smoke
+  pull_request:
+    paths:
+      - 'GameServer/localhost-smoke.ps1'
+      - '.github/workflows/localhost-smoke.yml'
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: windows-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: MSBuild setup
+        uses: microsoft/setup-msbuild@v2
+      - name: Build AccountServer Release
+        shell: pwsh
+        run: msbuild "AccServer/AccServer.sln" /restore /m /p:Configuration=Release "/p:Platform=Any CPU" /v:minimal
+      - name: Build GameServer Debug x86
+        shell: pwsh
+        run: msbuild "GameServer/COServer.sln" /restore /m /p:Configuration=Debug /p:Platform=x86 /v:minimal
+      - name: Initialize MySQL, import database, then launch and probe servers
+        shell: pwsh
+        run: |
+          ./GameServer/prepare-smoke-mysql.ps1
+          ./GameServer/localhost-smoke.ps1

@@ -21,4 +21,4 @@ jobs:
         uses: microsoft/setup-msbuild@v2
       - name: Build Debug x86
         shell: pwsh
-        run: msbuild "GameServer/COServer.sln" /m /p:Configuration=Debug /p:Platform=x86 /v:minimal
+        run: msbuild "GameServer/COServer.sln" /restore /m /p:Configuration=Debug /p:Platform=x86 /v:minimal
