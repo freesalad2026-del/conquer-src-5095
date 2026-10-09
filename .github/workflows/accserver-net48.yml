@@ -1,0 +1,24 @@
+name: AccServer - .NET Framework 4.8
+
+on:
+  push:
+    paths:
+      - 'AccServer/**'
+      - '.github/workflows/accserver-net48.yml'
+  pull_request:
+    paths:
+      - 'AccServer/**'
+      - '.github/workflows/accserver-net48.yml'
+
+jobs:
+  accserver:
+    name: Restore and build AccServer (net48)
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Add MSBuild
+        uses: microsoft/setup-msbuild@v2
+      - name: Restore NuGet and build
+        shell: pwsh
+        run: msbuild "AccServer/AccServer.sln" /restore /m /p:Configuration=Release "/p:Platform=Any CPU" /v:minimal
