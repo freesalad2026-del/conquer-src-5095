@@ -1,0 +1,27 @@
+name: Audit TQHandle dependencies
+on:
+  push:
+    branches: [refactor/tqhandle-native-anticheat]
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: windows-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect compiled DLL and usages (read-only)
+        shell: pwsh
+        run: |
+          Write-Host '=== IN-REPO TQHandle uses ==='
+          git grep -n -I -E 'TQHandle|TQState|TQGuard' -- GameServer ':!GameServer/bin' | Select-Object -First 100
+          Write-Host '=== DOTNET INFO ==='
+          dotnet --version
+          Write-Host '=== ILSPY INSTALL ==='
+          dotnet tool install --tool-path .tools ilspycmd --version 9.1.0.7988
+          Write-Host '=== DLL CLASS LIST ==='
+          & ./.tools/ilspycmd.exe -l c GameServer/bin/Debug/TQHandle.dll
+          Write-Host '=== MsgServer ==='
+          & ./.tools/ilspycmd.exe -t TQHandle.Network.MsgServer GameServer/bin/Debug/TQHandle.dll
+          Write-Host '=== ClientState ==='
+          & ./.tools/ilspycmd.exe -t TQHandle.ClientState GameServer/bin/Debug/TQHandle.dll
