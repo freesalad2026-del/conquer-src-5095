@@ -1,3 +1,6 @@
+#ifdef NDEBUG
+#undef NDEBUG // Keep runtime assertions enabled in Release/CI protocol tests.
+#endif
 #include "protocol.hpp"
 
 #include <array>
