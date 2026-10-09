@@ -124,12 +124,6 @@ namespace COServer.Database
                 IniFile.ReadUInt32("AntiCheat", "PacketFloodSoftLimit", 1000);
             Program.ServerConfig.PacketFloodHardLimit =
                 IniFile.ReadUInt32("AntiCheat", "PacketFloodHardLimit", 2500);
-            Program.ServerConfig.EnablePacketFloodGuard =
-                IniFile.ReadUInt32("AntiCheat", "EnablePacketFloodGuard", 1) != 0;
-            Program.ServerConfig.PacketFloodSoftLimit =
-                IniFile.ReadUInt32("AntiCheat", "PacketFloodSoftLimit", 1000);
-            Program.ServerConfig.PacketFloodHardLimit =
-                IniFile.ReadUInt32("AntiCheat", "PacketFloodHardLimit", 2500);
 
             Program.ServerConfig.DbLocation = IniFile.ReadString("Database", "Location", "");
             Program.ServerConfig.CO2Folder = IniFile.ReadString("Database", "CO2FOLDER", "");
