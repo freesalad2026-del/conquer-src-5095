@@ -156,6 +156,7 @@
     <PackageReference Include="MySql.Data" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AntiCheat\PacketFloodGuard.cs" />
     <Compile Include="BahaaPanels\AccountsForm.cs">
       <SubType>Form</SubType>
     </Compile>
