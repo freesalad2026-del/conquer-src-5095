@@ -1,35 +1,36 @@
-# Servidor Privado em C#
+# Private Server in C#
 
-- Baseado na versão 5517
-- Código escrito em C#
-- Contém AccServer (autenticação) e GameServer (lógica do jogo)
-- Repleto de correções, otimizações e melhorias de estabilidade
-- Sistema de eventos automáticos, shop, PvP, guilds, etc.
-- Banco de dados MySQL incluso no formato `.zq`
+- Based on version 5517
+- Written in C#
+- Includes AccServer (authentication) and GameServer (game logic)
+- Packed with fixes, optimizations, and stability improvements
+- Automatic event system, shop, PvP, guilds, and more
+- MySQL database included in `.zq` format
 
-## Estrutura do Projeto
+## Project Structure
 
 ```
-AccServer/     - Servidor de autenticação (login, conexão com DB)
-GameServer/    - Toda lógica do jogo, eventos, controle de players
-Database/      - Arquivo .zq com estrutura MySQL para uso direto
+AccServer/     - Authentication server (login, database connection)
+GameServer/    - All game logic, events, and player management
+Database/      - .zq file with the MySQL structure for direct use
 ```
-## Como Rodar
 
-1. Clone este repositório
-2. No `AccServer`, edite a string de conexão:
-   - Exemplo: `Database=zq;Uid=root;Password=123456789`
-3. No `GameServer`, altere a senha `Higor123*` para a mesma senha do banco
-4. Importe o banco de dados `.zq` no MySQL (recomendo Navicat)
-5. Compile os projetos no Visual Studio
-6. Execute `AccServer.exe` e `GameServer.exe`
+## How to Run
 
-## Recursos Implementados
+1. Clone this repository.
+2. In `AccServer`, edit the connection string:
+   - Example: `Database=zq;Uid=root;Password=123456789`
+3. In `GameServer`, change the password `Higor123*` to match the database password.
+4. Import the `.zq` database into MySQL (Navicat is recommended).
+5. Build the projects in Visual Studio.
+6. Run `AccServer.exe` and `GameServer.exe`.
 
-- **Offline Market** – Sistema de comércio funcionando mesmo com o personagem desconectado.
-- **Offline Miner** – Mineração automática enquanto o jogador está offline.
-- **Integração com Discord (Discord API)** – Atualizações e interações conectadas ao servidor do Discord.
-- **Online Points** – Sistema de pontos por tempo online.
-- **Sistema VIP** – Benefícios exclusivos para jogadores VIP.
-- **Socket System** – Sistema completo de sockets para itens.
-- Entre outras infinidades de coisas!
+## Implemented Features
+
+- **Offline Market** – Trading system that works even while the character is disconnected.
+- **Offline Miner** – Automatic mining while the player is offline.
+- **Discord Integration (Discord API)** – Updates and interactions connected to the Discord server.
+- **Online Points** – Points system based on time spent online.
+- **VIP System** – Exclusive benefits for VIP players.
+- **Socket System** – Complete item socket system.
+- And many more features!
