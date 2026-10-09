@@ -45,7 +45,18 @@ if (-not $healthy) {
     if (Test-Path $stderr) { Get-Content $stderr -Tail 25 }
     throw 'MySQL port 3306 did not open'
 }
-Write-Host 'MySQL listening on 127.0.0.1:3306'
+Write-Host 'MySQL TCP port is open. Waiting for SQL authentication to become ready...'
+$ready = $false
+for ($i = 0; $i -lt 40; $i++) {
+    Start-Sleep -Seconds 1
+    & $mysqlCmd.Source --host=127.0.0.1 --protocol=tcp --user=root --connect-timeout=2 -e "SELECT 1;" 2>$null | Out-Null
+    if ($LASTEXITCODE -eq 0) { $ready = $true; break }
+}
+if (-not $ready) {
+    if (Test-Path $stderr) { Get-Content $stderr -Tail 35 }
+    throw 'MySQL TCP opened but server did not become ready for SQL queries'
+}
+Write-Host 'MySQL server accepts local SQL queries'
 
 # GameServer source expects the sample root password already committed to the repository.
 # AccountServer sample config differs, so only its generated CI output config is aligned.
