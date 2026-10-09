@@ -22,7 +22,8 @@ if ($LASTEXITCODE -ne 0) { throw "MySQL initialization failed: exit $LASTEXITCOD
 
 $stdout = Join-Path $env:RUNNER_TEMP 'mysqld.stdout.log'
 $stderr = Join-Path $env:RUNNER_TEMP 'mysqld.stderr.log'
-$mysqlProc = Start-Process -FilePath $mysqldCmd.Source -ArgumentList @('--no-defaults',"--basedir=$baseDir","--datadir=$dataDir",'--port=3306','--bind-address=127.0.0.1','--console') -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru
+$mysqlArgs = '--no-defaults "--basedir=' + $baseDir + '" "--datadir=' + $dataDir + '" --port=3306 --bind-address=127.0.0.1 --console'
+$mysqlProc = Start-Process -FilePath $mysqldCmd.Source -ArgumentList $mysqlArgs -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru
 Write-Host ("MySQL daemon started (PID " + $mysqlProc.Id + ")")
 $healthy = $false
 for ($i = 0; $i -lt 35; $i++) {
@@ -47,8 +48,10 @@ if (-not $healthy) {
 }
 Write-Host 'MySQL TCP port is open. Waiting for SQL authentication to become ready...'
 $ready = $false
-for ($i = 0; $i -lt 40; $i++) {
+for ($i = 0; $i -lt 20; $i++) {
     Start-Sleep -Seconds 1
+    $mysqlProc.Refresh()
+    if ($mysqlProc.HasExited) { Write-Host 'MySQL daemon exited before readiness'; break }
     & $mysqlCmd.Source --host=127.0.0.1 --protocol=tcp --user=root --connect-timeout=2 -e "SELECT 1;" 2>$null | Out-Null
     if ($LASTEXITCODE -eq 0) { $ready = $true; break }
 }
