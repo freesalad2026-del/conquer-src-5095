@@ -1,6 +1,5 @@
 ﻿using COServer.Client;
 using COServer.Game.MsgServer.AttackHandler.ReceiveAttack;
-using MySql.Data.MySqlClient.Memcached;
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
