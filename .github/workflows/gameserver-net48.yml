@@ -1,0 +1,24 @@
+name: GameServer - .NET Framework 4.8
+
+on:
+  push:
+    paths:
+      - 'GameServer/**'
+      - '.github/workflows/gameserver-net48.yml'
+  pull_request:
+    paths:
+      - 'GameServer/**'
+      - '.github/workflows/gameserver-net48.yml'
+
+jobs:
+  gameserver:
+    name: Build GameServer with bundled references
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up MSBuild
+        uses: microsoft/setup-msbuild@v2
+      - name: Build Debug x86
+        shell: pwsh
+        run: msbuild "GameServer/COServer.sln" /m /p:Configuration=Debug /p:Platform=x86 /v:minimal
