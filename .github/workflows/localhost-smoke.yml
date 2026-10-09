@@ -24,9 +24,8 @@ jobs:
       - name: Build GameServer Debug x86
         shell: pwsh
         run: msbuild "GameServer/COServer.sln" /m /p:Configuration=Debug /p:Platform=x86 /v:minimal
-      - name: Initialize temporary MySQL and import zq.sql
+      - name: Initialize MySQL, import database, then launch and probe servers
         shell: pwsh
-        run: ./GameServer/prepare-smoke-mysql.ps1
-      - name: Launch both and probe localhost
-        shell: pwsh
-        run: ./GameServer/localhost-smoke.ps1
+        run: |
+          ./GameServer/prepare-smoke-mysql.ps1
+          ./GameServer/localhost-smoke.ps1
