@@ -1,0 +1,28 @@
+name: Native C++ AccountServer
+
+on:
+  pull_request:
+    paths:
+      - 'AccServerCpp/**'
+      - '.github/workflows/accserver-cpp.yml'
+  push:
+    branches:
+      - 'feature/native-cpp-account-server'
+    paths:
+      - 'AccServerCpp/**'
+      - '.github/workflows/accserver-cpp.yml'
+  workflow_dispatch:
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install MariaDB development headers
+        run: sudo apt-get update && sudo apt-get install -y libmariadb-dev
+      - name: Configure
+        run: cmake -S AccServerCpp -B AccServerCpp/build -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cmake --build AccServerCpp/build --parallel
+      - name: Test protocol vectors
+        run: ctest --test-dir AccServerCpp/build --output-on-failure
